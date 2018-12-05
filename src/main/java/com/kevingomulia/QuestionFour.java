@@ -70,7 +70,6 @@ public class QuestionFour {
 
         System.out.println(sleepingSheet);
         System.out.println(detailedSleepingSheet);
-        // #1549 sleeps the most
 
         Map.Entry<String, Integer> maxEntry = null;
 
@@ -94,5 +93,24 @@ public class QuestionFour {
         }
         System.out.println(maxDetailedEntry);
         System.out.println(Integer.valueOf(maxEntry.getKey().substring(1)) * maxDetailedEntry.getKey());
+
+        Integer maxMinute = 0;
+        Integer minute = 0;
+        Integer guardNumber = 0;
+
+        // Part B
+        for (String key : detailedSleepingSheet.keySet()){
+            Map<Integer, Integer> value = detailedSleepingSheet.get(key);
+            for (Map.Entry<Integer, Integer> entry : value.entrySet()){
+                if (maxMinute < entry.getValue()){
+                    System.out.println("Max minute updated: " + maxMinute + " with minute: " + entry.getKey().toString() +
+                    " and guardNumber: " + key);
+                    maxMinute = entry.getValue();
+                    minute = entry.getKey();
+                    guardNumber = Integer.valueOf(key.substring(1));
+                }
+            }
+        }
+        System.out.println(minute * guardNumber);
     }
 }
