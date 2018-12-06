@@ -34,11 +34,14 @@ public class QuestionSix {
             System.out.println(map);
 
             Integer[][] matrix = new Integer[maxX + 1][maxY + 1];
+            int regionCount = 0;
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[0].length; j++) {
                     matrix[i][j] = countManhattanDistance(map, i, j);
+                    regionCount = countAllManhattanDistance(map, i, j, regionCount);
                 }
             }
+            System.out.println("Region Count: " + regionCount);
 //            for (int i = 0; i < matrix.length; i++) {
 //                for (int j = 0; j < matrix[i].length; j++) {
 //                    System.out.print(matrix[i][j] + " ");
@@ -49,6 +52,21 @@ public class QuestionSix {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static int countAllManhattanDistance(Map<Integer, List<Integer>> map, int i, int j, int regionCount) {
+        Integer totalManhattanDistance = 0;
+        Integer maxDistance = 10000;
+        for (Integer key : map.keySet()) {
+            Integer keyXValue = map.get(key).get(0);
+            Integer keyYValue = map.get(key).get(1);
+            Integer distance = Math.abs(keyXValue - i) + Math.abs(keyYValue - j);
+            totalManhattanDistance += distance;
+        }
+        if (totalManhattanDistance < maxDistance){
+            regionCount++;
+        }
+        return regionCount;
     }
 
     public static Integer countManhattanDistance(Map<Integer, List<Integer>> map, int i, int j) {
